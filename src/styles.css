@@ -1,115 +1,139 @@
-/* Generale */
 body {
     background-color: #F7F7F8;
-    color: #000000;
+    color: #000;
     font-family: Arial, sans-serif;
     margin: 0;
-}
-
-#mapid, #mapidZona {
+  }
+  
+  #mapid, #mapidZona {
     height: 300px;
     width: 100%;
-}
-
-/* Navbar */
-.navbar {
+  }
+  
+  .navbar {
     background-color: #FFFFFF;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     padding: 10px 15px;
-}
-
-.navbar .navbar-brand {
-    color: #000000;
-    font-size: 1.2rem;
-    font-weight: bold;
-}
-
-.navbar .back-btn {
-    background-color: #C1EDCC;
-    color: #000000;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 12px;
-}
-
-.navbar .back-btn:hover {
-    background-color: #A5DFC2;
-}
-
-/* Card */
-.card {
-    background-color: #FFFFFF;
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 15px;
-}
-
-/* Lista */
-.list-group-item {
-    background-color: #304D6D;
-    color: #FFFFFF;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 15px;
-    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-/* Pulsanti della checklist */
-.list-group-item .btn {
+  }
+  
+  .navbar-left, .navbar-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar .navbar-brand {
+    color: #000;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+  
+  .logout-btn {
+    background-color: #C1EDCC;
     border: none;
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .logout-btn:hover {
+    background-color: #A5DFC2;
+  }
+  
+  .logout-icon {
+    font-size: 20px;
+    color: #000;
+  }
+  
+  .menu-dots {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 10px;
+  }
+  
+  .menu-dots .dot {
+    width: 6px;
+    height: 6px;
+    background-color: #000;
     border-radius: 50%;
-    width: 32px;
-    height: 32px;
+    margin: 2px 0;
+  }
+  
+  .user-initials {
+    width: 40px;
+    height: 40px;
+    background-color: #C1EDCC;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.9rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Pulsante AR */
-.btn-ar {
-    background-color: #CCCCCC;
-    color: #000000;
-}
-.btn-ar:hover {
-    background-color: #BBBBBB;
-}
-
-/* Pulsante Checked */
-.btn-checked {
-    background-color: #C1EDCC;
-    color: #000000;
-}
-.btn-checked:hover {
-    background-color: #A5DFC2;
-}
-
-/* Textarea */
-textarea {
+    font-weight: bold;
+    color: #000;
+  }
+  
+  .card {
     background-color: #FFFFFF;
-    color: #000000;
-    border: 1px solid #CCCCCC;
-    border-radius: 8px;
-    padding: 10px;
-    font-size: 1rem;
-    resize: none;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 15px;
+  }
+  
+  .zone-card {
+    margin: 10px auto;
+    padding: 10px 15px;
+  }
+  
+  .card-body {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .flex-grow-1 {
+    flex-grow: 1;
+    font-size: 0.95rem;
+  }
+  
+  .status-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+  }
+  
+  .status-indicator {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid #000;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .status-ok {
+    background-color: green;
+  }
+  
+  .status-warning {
+    background-color: yellow;
+  }
+  
+  .status-alarm {
+    background-color: red;
+  }
+  
+  .zone-action {
+    text-align: right;
+  }
+  
+  @media (max-width: 768px) {
     .navbar .btn {
-        font-size: 1rem;
+      font-size: 1rem;
     }
-    .list-group-item {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .card {
-        margin-bottom: 20px;
-    }
-}
+  }  
