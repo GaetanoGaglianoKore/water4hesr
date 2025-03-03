@@ -1,73 +1,71 @@
-// src/components/Zona.js
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import Navbar from './Navbar';
 
 function Zona() {
   const { zonaId } = useParams();
-  const mapRef = useRef(null); // Conserva l'istanza della mappa
+  const [devices, setDevices] = useState([]);
+  const mapRef = useRef(null);
 
   useEffect(() => {
-    // Inizializza la mappa solo se non è già stata creata
-    if (!mapRef.current) {
-      mapRef.current = L.map('mapidZona').setView([37.567, 14.285], 14);
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
-      }).addTo(mapRef.current);
-      L.marker([37.567, 14.285]).addTo(mapRef.current)
-        .bindPopup(`Zona ${zonaId}`)
-        .openPopup();
-    }
-    // Se vuoi aggiornare la popup in base al zonaId, potresti farlo qui.
+    fetch(`http://water4.altervista.org/backend/getZonesDev.php?zoneId=${zonaId}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.zone) {
+          if (!mapRef.current) {
+            mapRef.current = L.map('mapidZona').setView(
+              [data.zone.longitude, data.zone.latitude],
+              14
+            );
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(mapRef.current);
+          }
+          if (data.devices && Array.isArray(data.devices)) {
+            data.devices.forEach(device => {
+              L.marker([device.longitude, device.latitude]).addTo(mapRef.current)
+                .bindPopup(`<strong>${device.device_code}</strong><br>${device.brand} - ${device.model}`);
+            });
+          }
+          setDevices(data.devices || []);
+        } else {
+          console.error("Zona non trovata per l'ID fornito.");
+        }
+      })
+      .catch(err => console.error("Errore nel recupero dei dati della zona: ", err));
   }, [zonaId]);
-
-  // Lista statica dei device
-  const devices = [
-    { id: 'PUMP1', timestamp: '12:34:36', rul: 'RUL' },
-    { id: 'VALVE1', timestamp: '14:00:12', rul: 'RUL' }
-  ];
 
   return (
     <div className="container-fluid p-0">
-      {/* Navbar */}
-      <nav className="navbar px-3">
-        <Link to="/dashboard" className="btn back-btn me-2" style={{ backgroundColor: '#C1EDCC', color: '#000' }}>
-          &#8592;
-        </Link>
-        <span className="navbar-brand">Zona {zonaId}</span>
-        <div className="d-flex align-items-center ms-auto">
-          <div className="user-avatar"></div>
-          <div className="menu-dots ms-2">
-            <div className="dot"></div>
-            <div className="dot"></div>
-            <div className="dot"></div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Contenuto */}
+      <Navbar title={`Zona ${zonaId}`} showBackButton={true} backLink="/dashboard" />
       <div className="container my-4 px-3">
         <h2 className="h6 mb-2">Mappa zona</h2>
         <div id="mapidZona" className="rounded"></div>
-
         <h2 className="h6 mt-4 mb-2">Lista device in zona</h2>
-        {devices.map((device, index) => (
-          <div key={index} className="card mb-3" style={{ backgroundColor: '#304D6D' }}>
-            <div className="card-body d-flex align-items-center text-white">
-              <div className="flex-grow-1">
-                {device.timestamp} - {device.id}
+        {devices && devices.length > 0 ? (
+          devices.map(device => (
+            <div key={device.id_device} className="card mb-3" style={{ backgroundColor: '#304D6D' }}>
+              <div className="card-body d-flex align-items-center text-white">
+                <div className="status-wrapper me-3">
+                  <div className={`status-indicator status-${device.status.toLowerCase()}`}></div>
+                </div>
+                <div className="flex-grow-1">
+                  {device.device_code} - {device.brand} - {device.model} ({device.type})
+                </div>
+                <Link to={`/componente/${device.id_device}`} className="btn btn-outline-light btn-sm me-2">
+                  i
+                </Link>
+                <Link to={`/intervento/${device.id_device}`} className="btn btn-outline-light btn-sm">
+                  ⚙
+                </Link>
               </div>
-              <span className="badge bg-danger me-2">{device.rul}</span>
-              <Link to={`/componente/${device.id}`} className="btn btn-outline-light btn-sm me-2">
-                i
-              </Link>
-              <Link to={`/intervento/${device.id}`} className="btn btn-outline-light btn-sm">
-                ⚙
-              </Link>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p className="text-muted">Nessun dispositivo presente in questa zona.</p>
+        )}
       </div>
     </div>
   );
