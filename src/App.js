@@ -19,7 +19,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/zona/:zonaId" element={<Zona />} />
         <Route path="/intervento/:deviceName" element={<Intervento />} />
-        <Route path="/componente/:deviceName" element={<DettagliComponente />} />
+        <Route path="/componente/:deviceId" element={<DettagliComponente />} />
       </Routes>
     </Router>
   );

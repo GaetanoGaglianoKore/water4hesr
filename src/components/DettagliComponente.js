@@ -1,76 +1,126 @@
 // src/components/DettagliComponente.js
-import React from 'react';
-import { useParams, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import Navbar from './Navbar';
 
 function DettagliComponente() {
-  // Ottieni il nome del device dalla rotta (parametro :deviceName)
-  const { deviceName } = useParams();
+  const { deviceId } = useParams();
+  const [device, setDevice] = useState(null);
+  const [paramsData, setParamsData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Dati di esempio (in futuro potresti recuperarli da un backend)
-  const brand = '[...]';
-  const position = 'Via S. Leone';
-  const rul = '[...]';
+  useEffect(() => {
+    fetch(`http://water4.altervista.org/backend/getComponentDetails.php?deviceId=${deviceId}`)
+      .then(res => res.json())
+      .then(data => {
+        if (data.device) {
+          setDevice(data.device);
+          setParamsData(data.params || []);
+        } else {
+          console.error("Errore:", data.error);
+        }
+      })
+      .catch(err => console.error("Errore nel recupero dei dati del dispositivo:", err))
+      .finally(() => setLoading(false));
+  }, [deviceId]);
 
-  // Tabella di esempio con parametri, valori, timestamp e valore ottimale
-  const tableData = [
-    { parametro: 'Temperatura', valore: '50°C', timestamp: '2023-10-04 12:00:00', valoreOttimale: '45-55°C' },
-    { parametro: 'Pressione', valore: '3 bar', timestamp: '2023-10-04 12:00:00', valoreOttimale: '2-4 bar' },
-  ];
+  if (loading) {
+    return <div className="container my-4">Caricamento...</div>;
+  }
+
+  if (!device) {
+    return <div className="container my-4">Dispositivo non trovato.</div>;
+  }
+
+  // Recupera la RUL più recente (prendendo il primo record, poiché l'array è ordinato DESC per timestamp)
+  const latestRUL = paramsData.length > 0 ? paramsData[0].RUL : null;
+  const formattedRUL = latestRUL !== null ? formatRULinDaysHours(latestRUL) : 'N/A';
 
   return (
     <div className="container-fluid p-0">
-      {/* Navbar */}
-      <nav className="navbar px-3" style={{ backgroundColor: '#FFFFFF' }}>
-        {/* Puoi reindirizzare al path corretto per tornare alla zona */}
-        <Link to="/zona/1" className="btn back-btn me-2" style={{ backgroundColor: '#C1EDCC', color: '#000' }}>
-          &#8592;
-        </Link>
-        <span className="navbar-brand">{deviceName}</span>
-      </nav>
-
+      <Navbar 
+        title={`Device ${device.device_code}`} 
+        showBackButton={true} 
+        backLink={`/zona/${device.id_zone}`} 
+      />
       <div className="container my-4">
-        {/* Sezione immagine e info base */}
         <div className="row">
-          <div className="col-12 col-md-4">
-            <img
-              src="/pump.jpg"  // Immagine di esempio, metti qui la tua immagine
-              alt="device"
-              className="img-fluid rounded mb-3"
-            />
-          </div>
           <div className="col-12 col-md-8">
-            <h5>Marca: {brand}</h5>
-            <p>Posizione: {position}</p>
-            <p>RUL: {rul}</p>
+            <h5>Marca: {device.brand}</h5>
+            <p>Modello: {device.model}</p>
+            <p>Tipo: {device.type}</p>
+            <p>Stato: {device.status}</p>
+          </div>
+          <div className="col-12 col-md-4 d-flex align-items-center justify-content-end">
+            {latestRUL !== null && (
+              <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#333' }}>
+                Tempo rimanente stimato: {formattedRUL}
+              </div>
+            )}
           </div>
         </div>
-
-        {/* Tabella parametri */}
         <div className="mt-4">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Parametro</th>
-                <th>Valore</th>
-                <th>Timestamp</th>
-                <th>Valore Ottimale</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tableData.map((row, i) => (
-                <tr key={i}>
-                  <td>{row.parametro}</td>
-                  <td>{row.valore}</td>
-                  <td>{row.timestamp}</td>
-                  <td>{row.valoreOttimale}</td>
+          <h5>Parametri registrati</h5>
+          {paramsData.length > 0 ? (
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>ID Param</th>
+                  <th>Timestamp</th>
+                  <th>RUL (min)</th>
+                  <th>Params (JSON)</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {paramsData.map(param => (
+                  <tr key={param.id_param}>
+                    <td>{param.id_param}</td>
+                    <td>{param.timestamp}</td>
+                    <td>{param.RUL !== null ? param.RUL : '-'}</td>
+                    <td>{param.params ? renderJson(param.params) : '-'}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          ) : (
+            <p className="text-muted">Nessun parametro registrato per questo dispositivo.</p>
+          )}
         </div>
       </div>
     </div>
   );
+}
+
+function formatRULinDaysHours(rulMinutes) {
+  const totalMin = parseInt(rulMinutes, 10) || 0;
+  const days = Math.floor(totalMin / (60 * 24));
+  const hours = Math.floor((totalMin % (60 * 24)) / 60);
+  return `${days} giorni e ${hours} ore`;
+}
+
+function renderJson(jsonString) {
+  if (!jsonString) return '-';
+  let parsed;
+  try {
+    parsed = JSON.parse(jsonString);
+  } catch (e) {
+    return jsonString;
+  }
+  if (typeof parsed === 'object' && parsed !== null) {
+    return (
+      <table className="table table-sm" style={{ backgroundColor: '#fff' }}>
+        <tbody>
+          {Object.entries(parsed).map(([key, value]) => (
+            <tr key={key}>
+              <td><strong>{key}</strong></td>
+              <td>{typeof value === 'object' ? JSON.stringify(value) : value.toString()}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    );
+  }
+  return jsonString;
 }
 
 export default DettagliComponente;
