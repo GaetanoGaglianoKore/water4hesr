@@ -1,7 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-function Navbar({ title, showLogout = false, showBackButton = false, backLink = '/' }) {
+function Navbar({
+  title,
+  showLogout = false,
+  showBackButton = false,
+  backLink = "/",
+}) {
   return (
     <nav className="navbar">
       <div className="navbar-left">

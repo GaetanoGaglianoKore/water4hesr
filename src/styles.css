@@ -1,139 +1,194 @@
+/* Generale */
 body {
-    background-color: #F7F7F8;
-    color: #000;
-    font-family: Arial, sans-serif;
-    margin: 0;
-  }
-  
-  #mapid, #mapidZona {
-    height: 300px;
-    width: 100%;
-  }
-  
-  .navbar {
-    background-color: #FFFFFF;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    padding: 10px 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .navbar-left, .navbar-right {
-    display: flex;
-    align-items: center;
-  }
-  
-  .navbar .navbar-brand {
-    color: #000;
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-left: 10px;
-  }
-  
-  .logout-btn {
-    background-color: #C1EDCC;
-    border: none;
-    border-radius: 8px;
-    padding: 8px;
-    cursor: pointer;
-  }
-  
-  .logout-btn:hover {
-    background-color: #A5DFC2;
-  }
-  
-  .logout-icon {
-    font-size: 20px;
-    color: #000;
-  }
-  
-  .menu-dots {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-right: 10px;
-  }
-  
-  .menu-dots .dot {
-    width: 6px;
-    height: 6px;
-    background-color: #000;
-    border-radius: 50%;
-    margin: 2px 0;
-  }
-  
-  .user-initials {
-    width: 40px;
-    height: 40px;
-    background-color: #C1EDCC;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    color: #000;
-  }
-  
-  .card {
-    background-color: #FFFFFF;
-    border: none;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    padding: 15px;
-  }
-  
-  .zone-card {
-    margin: 10px auto;
-    padding: 10px 15px;
-  }
-  
-  .card-body {
-    display: flex;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .flex-grow-1 {
-    flex-grow: 1;
-    font-size: 0.95rem;
-  }
-  
-  .status-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 10px;
-  }
-  
-  .status-indicator {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 2px solid #000;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .status-ok {
-    background-color: green;
-  }
-  
-  .status-warning {
-    background-color: yellow;
-  }
-  
-  .status-alarm {
-    background-color: red;
-  }
-  
-  .zone-action {
-    text-align: right;
-  }
-  
-  @media (max-width: 768px) {
-    .navbar .btn {
-      font-size: 1rem;
-    }
-  }  
+  background-color: #F7F7F8;
+  color: #000;
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-left,
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .navbar-brand {
+  color: #000;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.logout-btn,
+.back-btn {
+  background-color: #C1EDCC;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  color: #000;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.logout-btn:hover,
+.back-btn:hover {
+  background-color: #A5DFC2;
+}
+
+.logout-icon {
+  font-size: 20px;
+}
+
+.menu-dots {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.menu-dots .dot {
+  width: 6px;
+  height: 6px;
+  background-color: #000;
+  border-radius: 50%;
+  margin: 2px 0;
+}
+
+.user-initials {
+  width: 40px;
+  height: 40px;
+  background-color: #C1EDCC;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: #000;
+}
+
+/* Tabelle */
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+.table-blue {
+  background-color: #304D6D;
+  color: #fff;
+}
+
+.table-blue th,
+.table-blue td {
+  border-color: #304D6D;
+}
+
+/* Mini-tabella per il JSON formattato */
+.table.table-sm {
+  font-size: 0.85rem;
+  margin-bottom: 0;
+}
+
+.table.table-sm.table-blue {
+  background-color: #304D6D;
+  color: #fff;
+}
+
+/* Card */
+.card {
+  background-color: #FFFFFF;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+/* Dashboard card: per la dashboard vogliamo larghezza completa */
+.dashboard-card {
+  width: 100%;
+  margin: 10px 0;
+}
+
+/* Zona card specifica (se usata in Dashboard/Zona) */
+.zone-card {
+  max-width: 500px;
+  margin: 10px auto;
+}
+
+/* Utility Flex */
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+/* Status indicator */
+.status-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.status-indicator {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #000;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Colori per status */
+.status-ok {
+  background-color: green;
+}
+
+.status-warning {
+  background-color: yellow;
+}
+
+.status-alarm {
+  background-color: red;
+}
+
+/* Regole per le mappe */
+#mapid,
+#mapidZona {
+  height: 400px;
+  width: 100%;
+}
+/* Footer */
+.footer {
+  background-color: #304D6D;
+  color: #fff;
+  padding: 10px 15px;
+  text-align: center;
+  margin-top: 20px;
+}
