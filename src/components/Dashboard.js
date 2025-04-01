@@ -1,3 +1,4 @@
+// src/components/Dashboard.js
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import L from "leaflet";
@@ -32,9 +33,7 @@ function Dashboard() {
             .bindPopup(`<strong>${zone.zone_name}</strong><br>${zone.street}`);
         });
       })
-      .catch((err) =>
-        console.error("Errore nel recupero delle zone: ", err)
-      );
+      .catch((err) => console.error("Errore nel recupero delle zone: ", err));
     return () => {
       map.remove();
     };
@@ -50,14 +49,12 @@ function Dashboard() {
         {zones.map((zone) => (
           <div
             key={zone.id_zone}
-            className="card mb-3 dashboard-card"
-            style={{ backgroundColor: "#304D6D" }}
+            className="card mb-3"
+            style={{ backgroundColor: "#304D6D", width: "100%" }}
           >
             <div className="card-body d-flex align-items-center text-white">
               <div className="status-wrapper me-3">
-                <div
-                  className={`status-indicator status-${zone.status.toLowerCase()}`}
-                ></div>
+                <div className={`status-indicator status-${zone.status.toLowerCase()}`}></div>
               </div>
               <div className="flex-grow-1">
                 {zone.zone_name} - {zone.street}
@@ -65,13 +62,29 @@ function Dashboard() {
               <Link
                 to={`/zona/${zone.id_zone}`}
                 className="btn btn-light btn-sm"
-                style={{ backgroundColor: "#C1EDCC" }}
+                style={{ backgroundColor: "#C1EDCC", color: "#000" }}
               >
                 Vai
               </Link>
             </div>
           </div>
         ))}
+        {/* Pulsante Allarmi Evidente */}
+        <div className="d-flex justify-content-center mt-4">
+          <Link
+            to="/alarms"
+            className="btn btn-lg"
+            style={{
+              backgroundColor: "#C1EDCC",
+              color: "#000",
+              fontWeight: "bold",
+              padding: "12px 30px",
+              fontSize: "1.1rem"
+            }}
+          >
+            ALLARMI
+          </Link>
+        </div>
       </div>
     </div>
   );

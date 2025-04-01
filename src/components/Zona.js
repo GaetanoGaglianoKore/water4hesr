@@ -1,3 +1,4 @@
+// src/components/Zona.js
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import L from "leaflet";
@@ -63,6 +64,21 @@ function Zona() {
         <h2 className="h6 mb-2">Mappa zona</h2>
         <div id="mapidZona" className="rounded"></div>
         <h2 className="h6 mt-4 mb-2">Lista device in zona</h2>
+        <div className="d-flex justify-content-center mb-3">
+          <Link
+            to={`/zona/${zonaId}/alarms`}
+            className="btn btn-lg"
+            style={{
+              backgroundColor: "#C1EDCC",
+              color: "#000",
+              fontWeight: "bold",
+              padding: "12px 30px",
+              fontSize: "1.1rem",
+            }}
+          >
+            ALLARMI ZONA
+          </Link>
+        </div>
         {devices && devices.length > 0 ? (
           devices.map((device) => (
             <div
