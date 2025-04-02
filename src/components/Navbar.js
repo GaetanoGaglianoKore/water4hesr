@@ -1,3 +1,4 @@
+// src/components/Navbar.js
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -12,12 +13,20 @@ function Navbar({
       <div className="navbar-left">
         {showLogout && (
           <button className="logout-btn">
-            <span className="logout-icon">⎋</span>
+            <img
+              src="/logout.png"
+              alt="Logout"
+              style={{ width: "24px", height: "24px" }}
+            />
           </button>
         )}
         {showBackButton && (
           <Link to={backLink} className="back-btn">
-            &#8592;
+            <img
+              src="/back.png"
+              alt="Back"
+              style={{ width: "24px", height: "24px" }}
+            />
           </Link>
         )}
         <span className="navbar-brand">{title}</span>

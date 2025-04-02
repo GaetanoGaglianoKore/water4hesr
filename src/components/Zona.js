@@ -19,7 +19,7 @@ function Zona() {
         if (data.zone) {
           if (!mapRef.current) {
             mapRef.current = L.map("mapidZona").setView(
-              [data.zone.longitude, data.zone.latitude],
+              [data.zone.latitude, data.zone.longitude],
               14
             );
             L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -28,11 +28,14 @@ function Zona() {
           }
           if (data.devices && Array.isArray(data.devices)) {
             data.devices.forEach((device) => {
-              L.marker([device.longitude, device.latitude])
-                .addTo(mapRef.current)
-                .bindPopup(
-                  `<strong>${device.device_code}</strong><br>${device.brand} - ${device.model}`
-                );
+              // Assicurati di passare prima latitude poi longitude
+              if (device.latitude && device.longitude) {
+                L.marker([device.latitude, device.longitude])
+                  .addTo(mapRef.current)
+                  .bindPopup(
+                    `<strong>${device.device_code}</strong><br>${device.brand} - ${device.model}`
+                  );
+              }
             });
           }
           setDevices(data.devices || []);
@@ -43,14 +46,6 @@ function Zona() {
       .catch((err) =>
         console.error("Errore nel recupero dei dati della zona: ", err)
       );
-
-    // Cleanup: rimuove la mappa quando il componente viene smontato
-    return () => {
-      if (mapRef.current) {
-        mapRef.current.remove();
-        mapRef.current = null;
-      }
-    };
   }, [zonaId]);
 
   return (
@@ -63,8 +58,8 @@ function Zona() {
       <div className="container my-4 px-3">
         <h2 className="h6 mb-2">Mappa zona</h2>
         <div id="mapidZona" className="rounded"></div>
-        <h2 className="h6 mt-4 mb-2">Lista device in zona</h2>
-        <div className="d-flex justify-content-center mb-3">
+        {/* Pulsante Allarmi Zona */}
+        <div className="d-flex justify-content-center mt-3 mb-3">
           <Link
             to={`/zona/${zonaId}/alarms`}
             className="btn btn-lg"
@@ -76,9 +71,10 @@ function Zona() {
               fontSize: "1.1rem",
             }}
           >
-            ALLARMI ZONA
+            Allarmi zona
           </Link>
         </div>
+        <h2 className="h6 mt-4 mb-2">Lista device in zona</h2>
         {devices && devices.length > 0 ? (
           devices.map((device) => (
             <div
@@ -98,15 +94,14 @@ function Zona() {
                 </div>
                 <Link
                   to={`/componente/${device.id_device}`}
-                  className="btn btn-outline-light btn-sm me-2"
+                  className="btn btn-sm me-2"
+                  style={{ backgroundColor: "#A5DFC2", color: "#000" }}
                 >
-                  i
-                </Link>
-                <Link
-                  to={`/intervento/${device.id_device}`}
-                  className="btn btn-outline-light btn-sm"
-                >
-                  ⚙
+                  <img
+                    src="/info.png"
+                    alt="Info"
+                    style={{ width: "40px", height: "40px" }}
+                  />
                 </Link>
               </div>
             </div>

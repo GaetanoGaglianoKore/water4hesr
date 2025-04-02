@@ -28,7 +28,7 @@ function Dashboard() {
       .then((data) => {
         setZones(data.zones);
         data.zones.forEach((zone) => {
-          L.marker([zone.longitude, zone.latitude])
+          L.marker([zone.latitude, zone.longitude])
             .addTo(map)
             .bindPopup(`<strong>${zone.zone_name}</strong><br>${zone.street}`);
         });
@@ -54,7 +54,9 @@ function Dashboard() {
           >
             <div className="card-body d-flex align-items-center text-white">
               <div className="status-wrapper me-3">
-                <div className={`status-indicator status-${zone.status.toLowerCase()}`}></div>
+                <div
+                  className={`status-indicator status-${zone.status.toLowerCase()}`}
+                ></div>
               </div>
               <div className="flex-grow-1">
                 {zone.zone_name} - {zone.street}
@@ -62,9 +64,13 @@ function Dashboard() {
               <Link
                 to={`/zona/${zone.id_zone}`}
                 className="btn btn-light btn-sm"
-                style={{ backgroundColor: "#C1EDCC", color: "#000" }}
+                style={{ backgroundColor: "#C1EDCC" }}
               >
-                Vai
+                <img
+                  src="/forward.png"
+                  alt="Forward"
+                  style={{ width: "24px", height: "24px" }}
+                />
               </Link>
             </div>
           </div>
@@ -79,7 +85,7 @@ function Dashboard() {
               color: "#000",
               fontWeight: "bold",
               padding: "12px 30px",
-              fontSize: "1.1rem"
+              fontSize: "1.1rem",
             }}
           >
             ALLARMI

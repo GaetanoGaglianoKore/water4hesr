@@ -46,7 +46,7 @@ function Login() {
       >
         <div className="text-center mb-4 mt-3">
           <img
-            src="/placeholder-logo.png"
+            src="/logo.png"
             alt="Logo"
             className="img-fluid"
             style={{ maxWidth: "150px" }}
