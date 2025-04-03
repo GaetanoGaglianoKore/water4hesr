@@ -3,34 +3,28 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  const [email, setEmail] = useState(""); // utilizziamo email invece di username
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Resetta eventuali errori precedenti
-
+    setError("");
     try {
-      const response = await fetch(
-        "http://water4.altervista.org/backend/verifyUser.php",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        }
-      );
-
+      const response = await fetch("http://water4.altervista.org/backend/verifyUser.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
       const data = await response.json();
-
       if (response.ok) {
-        // Se il login ha successo, naviga alla dashboard
-        navigate("/dashboard");
+        if (data.user && data.user.role === "admin") {
+          navigate("/admindashboard");
+        } else {
+          navigate("/dashboard");
+        }
       } else {
-        // Se c'è un errore, visualizzalo
         setError(data.error || "Errore durante il login");
       }
     } catch (err) {
@@ -40,17 +34,9 @@ function Login() {
 
   return (
     <div className="bg-light d-flex justify-content-center align-items-center vh-100">
-      <div
-        className="card p-4 shadow"
-        style={{ width: "100%", maxWidth: "400px", borderRadius: "12px" }}
-      >
+      <div className="card p-4 shadow" style={{ width: "100%", maxWidth: "400px", borderRadius: "12px" }}>
         <div className="text-center mb-4 mt-3">
-          <img
-            src="/logo.png"
-            alt="Logo"
-            className="img-fluid"
-            style={{ maxWidth: "150px" }}
-          />
+          <img src="/logo.png" alt="Logo" className="img-fluid" style={{ maxWidth: "150px" }} />
         </div>
         {error && (
           <div className="alert alert-danger" role="alert">
@@ -78,11 +64,7 @@ function Login() {
               required
             />
           </div>
-          <button
-            type="submit"
-            className="btn w-100"
-            style={{ backgroundColor: "#C1EDCC", color: "#000" }}
-          >
+          <button type="submit" className="btn w-100" style={{ backgroundColor: "#C1EDCC", color: "#000" }}>
             Accedi
           </button>
         </form>

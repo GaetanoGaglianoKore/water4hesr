@@ -1,6 +1,6 @@
 // src/components/Navbar.js
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar({
   title,
@@ -8,11 +8,13 @@ function Navbar({
   showBackButton = false,
   backLink = "/",
 }) {
+  const navigate = useNavigate();
+
   return (
     <nav className="navbar">
       <div className="navbar-left">
         {showLogout && (
-          <button className="logout-btn">
+          <button className="logout-btn" onClick={() => navigate("/")}>
             <img
               src="/logout.png"
               alt="Logout"
@@ -23,7 +25,7 @@ function Navbar({
         {showBackButton && (
           <Link to={backLink} className="back-btn">
             <img
-              src="/back.png"
+              src="/placeholder-back.png"
               alt="Back"
               style={{ width: "24px", height: "24px" }}
             />

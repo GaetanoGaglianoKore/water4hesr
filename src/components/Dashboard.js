@@ -49,8 +49,12 @@ function Dashboard() {
         {zones.map((zone) => (
           <div
             key={zone.id_zone}
-            className="card mb-3"
-            style={{ backgroundColor: "#304D6D", width: "100%" }}
+            className="card mb-3 zone-card"
+            style={{
+              backgroundColor: "#304D6D",
+              width: "100%",
+              maxWidth: "100%",
+            }}
           >
             <div className="card-body d-flex align-items-center text-white">
               <div className="status-wrapper me-3">
@@ -75,19 +79,8 @@ function Dashboard() {
             </div>
           </div>
         ))}
-        {/* Pulsante Allarmi Evidente */}
         <div className="d-flex justify-content-center mt-4">
-          <Link
-            to="/alarms"
-            className="btn btn-lg"
-            style={{
-              backgroundColor: "#C1EDCC",
-              color: "#000",
-              fontWeight: "bold",
-              padding: "12px 30px",
-              fontSize: "1.1rem",
-            }}
-          >
+          <Link to="/alarms" className="btn btn-lg btn-alarm">
             ALLARMI
           </Link>
         </div>

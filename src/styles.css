@@ -192,3 +192,17 @@ body {
   text-align: center;
   margin-top: 20px;
 }
+.btn-alarm {
+  background-color: #C1EDCC;
+  color: #000;
+  font-weight: bold;
+  width: 100%;
+  padding: 12px 0;
+  font-size: 1.1rem;
+  border: none;
+}
+
+.btn-alarm:hover {
+  background-color: #C1EDCC;
+  opacity: 1;  /* Forza l'opacità al 100% al passaggio del mouse */
+}

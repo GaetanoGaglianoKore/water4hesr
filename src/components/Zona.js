@@ -28,7 +28,6 @@ function Zona() {
           }
           if (data.devices && Array.isArray(data.devices)) {
             data.devices.forEach((device) => {
-              // Assicurati di passare prima latitude poi longitude
               if (device.latitude && device.longitude) {
                 L.marker([device.latitude, device.longitude])
                   .addTo(mapRef.current)
@@ -58,29 +57,17 @@ function Zona() {
       <div className="container my-4 px-3">
         <h2 className="h6 mb-2">Mappa zona</h2>
         <div id="mapidZona" className="rounded"></div>
-        {/* Pulsante Allarmi Zona */}
-        <div className="d-flex justify-content-center mt-3 mb-3">
-          <Link
-            to={`/zona/${zonaId}/alarms`}
-            className="btn btn-lg"
-            style={{
-              backgroundColor: "#C1EDCC",
-              color: "#000",
-              fontWeight: "bold",
-              padding: "12px 30px",
-              fontSize: "1.1rem",
-            }}
-          >
-            Allarmi zona
-          </Link>
-        </div>
         <h2 className="h6 mt-4 mb-2">Lista device in zona</h2>
         {devices && devices.length > 0 ? (
           devices.map((device) => (
             <div
               key={device.id_device}
-              className="card mb-3"
-              style={{ backgroundColor: "#304D6D" }}
+              className="card mb-3 zone-card"
+              style={{
+                backgroundColor: "#304D6D",
+                width: "100%",
+                maxWidth: "100%",
+              }}
             >
               <div className="card-body d-flex align-items-center text-white">
                 <div className="status-wrapper me-3">
@@ -111,6 +98,11 @@ function Zona() {
             Nessun dispositivo presente in questa zona.
           </p>
         )}
+        <div className="d-flex justify-content-center mt-4">
+          <Link to={`/zona/${zonaId}/alarms`} className="btn btn-lg btn-alarm">
+            Allarmi zona
+          </Link>
+        </div>
       </div>
     </div>
   );
