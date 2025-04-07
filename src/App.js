@@ -10,6 +10,9 @@ import Intervento from "./components/Intervento";
 import DettagliComponente from "./components/DettagliComponente";
 import AdminDashboard from "./components/AdminDashboard";
 import Alarms from "./components/Alarms";
+import AllarmiAdmin from "./components/AllarmiAdmin";
+import AddZone from "./components/AddZone";
+import AddDevice from "./components/AddDevice";
 
 import "./styles.css";
 
@@ -23,8 +26,11 @@ function App() {
         <Route path="/intervento/:deviceName" element={<Intervento />} />
         <Route path="/componente/:deviceId" element={<DettagliComponente />} />
         <Route path="/admindashboard" element={<AdminDashboard />} />
+        <Route path="/allarmiadmin" element={<AllarmiAdmin />} />
         <Route path="/alarms" element={<Alarms />} />
         <Route path="/zona/:zonaId/alarms" element={<Alarms />} />
+        <Route path="/addzone" element={<AddZone />} />
+        <Route path="/adddevice" element={<AddDevice />} />
       </Routes>
     </Router>
   );

@@ -1,0 +1,54 @@
+/* src/components/AdminCommon.css */
+.admin-container {
+  margin: 20px auto;
+  max-width: 1200px;
+  padding: 20px;
+}
+
+.user-page-btn {
+  margin-bottom: 10px;
+}
+
+.admin-user-btn {
+  background-color: #c1edcc;
+  color: #000;
+  font-weight: bold;
+  border: none;
+  padding: 6px 12px;
+}
+
+.admin-title {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.admin-cards .admin-card {
+  background-color: #304d6d;
+  color: #fff;
+  border: none;
+}
+
+.admin-card .card-body {
+  padding: 20px;
+}
+
+.admin-card .card-footer {
+  background-color: transparent;
+  border-top: none;
+  padding: 0 20px 20px;
+}
+
+.admin-btn {
+  background-color: #c1edcc;
+  color: #000;
+  font-weight: bold;
+  width: 100%;
+  padding: 12px 0;
+  text-decoration: none;
+  border: none;
+}
+
+.admin-btn:hover {
+  background-color: #c1edcc;
+  opacity: 1;
+}

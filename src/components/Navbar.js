@@ -25,7 +25,7 @@ function Navbar({
         {showBackButton && (
           <Link to={backLink} className="back-btn">
             <img
-              src="/placeholder-back.png"
+              src="/back.png"
               alt="Back"
               style={{ width: "24px", height: "24px" }}
             />
