@@ -13,6 +13,7 @@ import Alarms from "./components/Alarms";
 import AllarmiAdmin from "./components/AllarmiAdmin";
 import AddZone from "./components/AddZone";
 import AddDevice from "./components/AddDevice";
+import AssignIntervention from "./components/AssignIntervention";
 
 import "./styles.css";
 
@@ -31,6 +32,8 @@ function App() {
         <Route path="/zona/:zonaId/alarms" element={<Alarms />} />
         <Route path="/addzone" element={<AddZone />} />
         <Route path="/adddevice" element={<AddDevice />} />
+        <Route path="/assignment" element={<AssignIntervention/>} />
+
       </Routes>
     </Router>
   );
