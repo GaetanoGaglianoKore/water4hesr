@@ -23,7 +23,7 @@ function AddZone() {
 
     try {
       const response = await fetch(
-        "http://water4.altervista.org/backend/insertZone.php",
+        "https://water4.altervista.org/backend/insertZone.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

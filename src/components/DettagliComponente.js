@@ -16,7 +16,7 @@ function DettagliComponente() {
   useEffect(() => {
     const fetchDeviceDetails = async () => {
       try {
-        const res = await fetch(`http://water4.altervista.org/backend/getComponentDetails.php?deviceId=${deviceId}`);
+        const res = await fetch(`https://water4.altervista.org/backend/getComponentDetails.php?deviceId=${deviceId}`);
         const data = await res.json();
         if (data.device) {
           setDevice(data.device);
@@ -36,7 +36,7 @@ function DettagliComponente() {
   const loadHistory = async () => {
     setHistoryLoading(true);
     try {
-      const res = await fetch(`http://water4.altervista.org/backend/getParamsHistory.php?deviceId=${deviceId}`);
+      const res = await fetch(`https://water4.altervista.org/backend/getParamsHistory.php?deviceId=${deviceId}`);
       const data = await res.json();
       if (data.history) {
         setParamsHistory(data.history);

@@ -15,9 +15,9 @@ function Alarms() {
       try {
         let url = "";
         if (viewMode === "current") {
-          url = "http://water4.altervista.org/backend/getAlarms.php";
+          url = "https://water4.altervista.org/backend/getAlarms.php";
         } else {
-          url = "http://water4.altervista.org/backend/getAlarmsHistory.php";
+          url = "https://water4.altervista.org/backend/getAlarmsHistory.php";
         }
         if (zonaId) {
           url += `?zoneId=${zonaId}`;

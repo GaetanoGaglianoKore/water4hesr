@@ -12,7 +12,7 @@ function Zona() {
 
   useEffect(() => {
     fetch(
-      `http://water4.altervista.org/backend/getZonesDev.php?zoneId=${zonaId}`
+      `https://water4.altervista.org/backend/getZonesDev.php?zoneId=${zonaId}`
     )
       .then((response) => response.json())
       .then((data) => {

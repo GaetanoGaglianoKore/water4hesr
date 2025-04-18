@@ -11,7 +11,7 @@ function AllarmiAdmin() {
   useEffect(() => {
     const fetchAlarms = async () => {
       try {
-        let url = "http://water4.altervista.org/backend/getAlarms.php";
+        let url = "https://water4.altervista.org/backend/getAlarms.php";
         if (zonaId) {
           url += `?zoneId=${zonaId}`;
         }

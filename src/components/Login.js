@@ -12,7 +12,7 @@ function Login() {
     e.preventDefault();
     setError("");
     try {
-      const response = await fetch("http://water4.altervista.org/backend/verifyUser.php", {
+      const response = await fetch("https://water4.altervista.org/backend/verifyUser.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

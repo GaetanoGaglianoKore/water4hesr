@@ -17,7 +17,7 @@ function AddDevice() {
 
   // Recupera le zone disponibili per il menu a tendina
   useEffect(() => {
-    fetch("http://water4.altervista.org/backend/getZones.php")
+    fetch("https://water4.altervista.org/backend/getZones.php")
       .then((response) => response.json())
       .then((data) => {
         if (data.zones) {
@@ -44,7 +44,7 @@ function AddDevice() {
 
     try {
       const response = await fetch(
-        "http://water4.altervista.org/backend/insertDevice.php",
+        "https://water4.altervista.org/backend/insertDevice.php",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

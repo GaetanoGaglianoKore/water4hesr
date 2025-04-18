@@ -23,7 +23,7 @@ function Dashboard() {
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       attribution: "&copy; OpenStreetMap contributors",
     }).addTo(map);
-    fetch("http://water4.altervista.org/backend/getZones.php")
+    fetch("https://water4.altervista.org/backend/getZones.php")
       .then((response) => response.json())
       .then((data) => {
         setZones(data.zones);
